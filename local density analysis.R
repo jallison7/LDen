@@ -90,6 +90,7 @@ local_density <- function(location_data = locations, radius) {
   local_densities <- counts
   type_list <- unique(local_densities$type)
   type_list <- sort(type_list)
+  
   # reduce the same-type counts and the total counts for 
   # each point by 1 so that points don't count in calculating their
   # own local densities
@@ -100,6 +101,7 @@ local_density <- function(location_data = locations, radius) {
       local_densities[i,j + 4] <- local_densities[i,j + 4] - 1
     }
   }
+  
   area <- pi * radius^2
   col_list <- colnames(local_densities)
   for (i in 5:ncol(local_densities)) {
@@ -119,7 +121,9 @@ local_density <- function(location_data = locations, radius) {
 
 # =======================================================
 # glb_density calculates the global density of points of each type 
-# (the number of points of the type divided by the total area)
+# (the number of points of the type divided by the total area) 
+# and returns a vector of the global densities that gets used by the lda function
+#to calculate the local density coefficient
 
 glb_density <- function(location_data = locations, site_area) {
   type_list <- unique(location_data$type)
@@ -152,15 +156,12 @@ lda <- function(location_data = locations, radius, site_area) {
     name_list <- c(as.character(type_list), "total")
     name_list_col <- c(paste0("ldc_", name_list), "radius")
     colnames(lda_matrix) <- name_list_col
-    #need to be in a column rather than (or in addition to) 
-    # as row names
-    rownames(lda_matrix) <- name_list
-  
+
       for (i in 1:(length(type_list) + 1)) {
       if (i <= length(type_list)){
         current_type <- filter(densities, type == type_list[i])
         for (j in 1:(length(type_list) + 1)) {
-         lda_matrix[i,j] <- mean(current_type[,j + 4]) / global_density[j]
+         lda_matrix[i,j] <- round(mean(current_type[,j + 4]) / global_density[j], 2)
         }
       }
       else {
@@ -195,24 +196,14 @@ lda <- function(location_data = locations, radius, site_area) {
 library(dplyr)
 
 
-locations <- read.csv(file = file.choose())
-
-
 # the data should be formatted as a data frame of artifact locations
 # with x coordinates in the first column, y coordinates in the second, and artifact type
 # in the third column
 
+locations <- read.csv(file = file.choose())
 # this just ensures that the column names in the data file are consistent
 colnames(locations) <- c("x", "y", "type")
 
-
-# locations$type <- as.factor(locations$type) 
-
-#site area for Kintigh's example file "LDEN.csv"
-LDEN_site_area <- 154
-
-# site area for "AZ_A1020_BLM_point_plots.csv"
-A1020_site_area <- 2409
 
 distance_test <- distance_matrix(location_data = locations)
 
@@ -220,8 +211,13 @@ counts_test <- local_counts(radius = 2)
 
 local_density_test <- local_density(radius = 2)
 
+#site area for Kintigh's example file "LDEN.csv = 154"
+#the site area for "AZ_A1020_BLM_point_plots.csv" = 2409
 
-global_density_test <- glb_density(site_area = A1020_site_area)
+global_density_test <- glb_density(site_area = 154)
 
+lda_test <- lda(locations, radius = 2, site_area = 154)
 
-lda_test <- lda(locations, radius = cbind(1,2,5), site_area = AZ_A_10_20_area)
+#test with multiple radii
+lda_test <- lda(locations, radius = cbind(1,2,5), site_area = 154)
+
