@@ -18,17 +18,6 @@ lda() directly uses the dataframe from local_density() and the vector of global 
 
 ====================================================================
 
-Things that need to be done with the code
-
-The R script needs to be converted to a package, and there are some functions that need to be added.
-
-The most complicated addition is an extension of local density analysis described in Kintigh (1990), in which the neighborhood compositions of the points are used as input for cluster analysis (with each individual point as a case, and variables are the percentages (or alternatively counts?) of the types within the local neighborhoods. The points can then be plotted (using their xy coordinates) distinguished by cluster membership (In Kintigh (1990), he plots numbers to show cluster membership (see his Figure 22 on page 194), but different symbols or colors could also work). local_counts() is a separate function (rather than internal to 
-local_density() ), because it outputs the neighborhood composition data that will be needed as input to for cluster analysis.
-
-Another (easier) function that needs to be added is one to plot the local density coefficients by radius. This was implemented in TFQA by LDPLT.exe, which plots a series of lines (one for each type) with radius on the x axis and the local density coefficient on the y axis.
-
-====================================================================
-
 Resources for Testing the Code
 
 The repository also includes two data files, and output from the original TFQA program LDEN.exe for the data in the files.
