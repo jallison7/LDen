@@ -17,7 +17,5 @@
 #'   \item{x}{Easting of location in EPSG ...}
 #'   \item{y}{Northing of location in EPSG ...}
 #'   \item{type}{Type of Evidence at location, see description}
-#'   ...
 #' }
-#' @source <???>
 "AZ_A1020_BLM"

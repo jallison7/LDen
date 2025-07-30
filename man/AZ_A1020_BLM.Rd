@@ -12,14 +12,8 @@ A data frame with 358 rows and 3 columns:
 \item{x}{Easting of location in EPSG ...}
 \item{y}{Northing of location in EPSG ...}
 \item{type}{Type of Evidence at location, see description}
-...
 }
 }
-}
-\source{
-\if{html}{\out{
-<???>
-}}
 }
 \usage{
 AZ_A1020_BLM

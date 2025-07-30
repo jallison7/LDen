@@ -16,13 +16,9 @@ LDen1_out <- data.frame(
   count_total = rep(c(3, 2, 1, 2, 1), c(1, 2, 5, 2, 6))
 )
 
-test_that("testdata identical for radius 1", {
-  lcount <- local_counts(test_locs, 1)
-  lcount$radius <- NULL
-
-  LDen1_out <- LDen1_out[, colnames(lcount)]
-
-  expect_equal(lcount, LDen1_out, ignore_attr = TRUE)
+test_that("local_count() matches TFQA'S LDEN with radius 1", {
+  lcount <- local_count(test_locs, radius = 1)
+  expect_equal(lcount, LDen1_out$count_total, ignore_attr = TRUE)
 })
 
 
@@ -42,13 +38,9 @@ LDen2_out <- data.frame(
   count_total = c(3, 3, 3, 1, 4, 4, 4, 4, 2, 4, 3, 3, 2, 3, 1, 2)
 )
 
-test_that("testdata identical for radius 2", {
-  lcount <- local_counts(test_locs, 2)
-  lcount$radius <- NULL
-
-  LDen2_out <- LDen2_out[, colnames(lcount)]
-
-  expect_equal(lcount, LDen2_out, ignore_attr = TRUE)
+test_that("local_count() matches TFQA'S LDEN with radius 2", {
+  lcount <- local_count(test_locs, radius = 2)
+  expect_equal(lcount, LDen2_out$count_total, ignore_attr = TRUE)
 })
 
 
@@ -68,11 +60,7 @@ LDen5_out <- data.frame(
   count_total = 4
 )
 
-test_that("testdata identica for radius 5", {
-  lcount <- local_counts(test_locs, 5)
-  lcount$radius <- NULL
-
-  LDen5_out <- LDen5_out[, colnames(lcount)]
-
-  expect_equal(lcount, LDen5_out, ignore_attr = TRUE)
+test_that("local_count() matches TFQA'S LDEN with radius 5", {
+  lcount <- local_count(test_locs, radius = 5)
+  expect_equal(lcount, LDen5_out$count_total, ignore_attr = TRUE)
 })

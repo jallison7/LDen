@@ -9,6 +9,4 @@
 library(testthat)
 library(LDen)
 
-
-
 test_check("LDen")

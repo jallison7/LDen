@@ -2,31 +2,33 @@
 % Please edit documentation in R/lda.R
 \name{lda}
 \alias{lda}
-\title{LDA: Local Density ...?}
+\title{Local Density Analysis}
 \usage{
-lda(location_data, radius, site_area)
+lda(x, type, radius, area = NULL)
 }
 \arguments{
-\item{location_data}{expects a data.frame with three columns:
-\describe{
-\item{x}{Easting / x-coordinate of location}
-\item{y}{Northing / y-coordinate of location}
-\item{type}{categorical variable for type of evidence at location}
-}}
+\item{x}{Coordinates specified as a two-column data frame, matrix, or list
+of equal-length vectors}
 
-\item{radius}{\emph{numeric}. the radius of what constitues the
-"neighborhood" of each point}
+\item{type}{Vector the same length as \code{x} giving the types or other
+categorical variable to construct sets for pairwise comparison.}
 
-\item{site_area}{\emph{numeric}. total area of the site}
+\item{radius}{Size of the neighbourhood}
+
+\item{area}{Total area of the window. If \code{NULL}, inferred as the area of the
+bounding box of the coordinates specified by \code{x} and \code{y}.}
 }
 \value{
 A data.frame containing the local density coefficients.
 }
 \description{
 \code{lda()} calculates the local density coefficient within and between
-all the types in the dataset. The local density coefficient from
+all the types in a dataset. The local density coefficient from
 Type A to Type B is the mean density of points of Type B within
 the specified radius of points of Type A, divided by the global
 density of points of Type B (i.e., the number of points of
 Type B divided by the total area)
+}
+\examples{
+lda(AZ_A1020_BLM, type = AZ_A1020_BLM$type, radius = 2, area = 2049)
 }

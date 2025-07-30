@@ -31,25 +31,16 @@ locations <- LDen::AZ_A1020_BLM
 head(locations)
 ```
 
-# Distance matrix from location data
-
-```{r create distance matrix}
-distance_test <- distance_matrix(location_data = locations)
-head(distance_test, n = c(7, 7))
-```
-
 # Local Counts
 
 ```{r local counts}
-counts_test <- local_counts(locations, radius = 2)
-head(counts_test)
+local_count(locations, radius = 2)
 ```
 
 # Local Density
 
 ```{r local density}
-local_density_test <- local_density(locations, radius = 2)
-head(local_density_test)
+local_density(locations, radius = 2)
 ```
 
 # Global Density
@@ -58,14 +49,13 @@ site area for Kintigh's example file "LDEN.csv = 154"
 the site area for "AZ_A1020_BLM_point_plots.csv" = 2409
 
 ```{r global density}
-global_density_test <- glb_density(locations, site_area = 2409)
-head(global_density_test)
+global_density(locations, area = 2409)
 ```
 
 # Single Radius
 
 ```{r lda single rad}
-lda_test <- lda(locations, radius = 2, site_area = 2409)
+lda_test <- lda(locations, type = locations$type, radius = 2, area = 2409)
 head(lda_test)
 ```
 
@@ -73,8 +63,9 @@ head(lda_test)
 
 
 ```{r lda multiple rad}
-lda_test <- lda(locations, radius = cbind(1,2,5), site_area = 2409)
-head(lda_test)
+# TODO: broken
+#lda_test <- lda(locations$x, locations$y, locations$type, radius = cbind(1,2,5), area = 2409)
+#head(lda_test)
 ```
 
 # References
